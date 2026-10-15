@@ -9,29 +9,46 @@
   <body>
     <nav class="nav">
       <div class="nav-inner">
-        <div class="brand">Telecomm Tutor</div>
+        <div class="brand">
+          <img src="/static/logo.svg" alt="Telecomm Tutor logo" class="brand-logo" />
+          <span class="brand-title">Telecomm Tutor</span>
+        </div>
         <div class="nav-actions">
           <a href="#how" class="nav-link">How it works</a>
           <a href="#demo" class="nav-link">Demo</a>
+          <a href="/" class="nav-link">Start</a>
         </div>
       </div>
     </nav>
 
     <header class="hero">
       <div class="hero-inner">
-        <div>
-          <p class="eyebrow">Telecomm Learning</p>
+        <div class="hero-left">
+          <p class="eyebrow">Telecom learning made simple</p>
           <h1>Interactive Quiz + Tutor Bot</h1>
           <p class="hero-copy">
-            Get instant feedback and contextual explanations for telecom plan questions. Built with vector retrieval and LLM evaluation.
+            Generate context-aware quizzes from telecom plan data, get AI-powered evaluations, and learn from evidence snippets — built for fast upskilling and portfolios.
           </p>
+
           <div class="hero-cta">
             <button id="start-quiz" class="primary">Start Quiz</button>
             <a href="#demo" class="muted-link">View demo</a>
           </div>
+
+          <ul class="quick-features">
+            <li>Vector retrieval + LLM explanations</li>
+            <li>Lightweight Flask app (run locally)</li>
+            <li>Works with or without OpenAI key</li>
+          </ul>
         </div>
-        <div class="hero-shot">
-          <img src="/static/demo-screenshot.svg" alt="Demo screenshot" />
+
+        <div class="hero-right">
+          <picture>
+            <!-- Primary demo GIF (replace /static/demo.gif with your real GIF) -->
+            <source srcset="/static/demo.gif" type="image/gif">
+            <!-- Fallback static SVG if GIF not provided -->
+            <img src="/static/demo-screenshot.svg" alt="Demo screenshot" class="hero-shot" />
+          </picture>
         </div>
       </div>
     </header>
@@ -78,8 +95,20 @@
         </div>
 
         <h3 id="demo">Demo</h3>
-        <p>Below is a preview screenshot. Replace with a real demo GIF for portfolio pages.</p>
+        <p>Replace <code>/static/demo.gif</code> with a short GIF (3–8s) that shows the quiz flow. If no GIF is provided the static preview is used instead.</p>
         <img src="/static/demo-screenshot.svg" alt="demo" class="demo-shot" />
+
+        <details style="margin-top:12px;">
+          <summary>How to create a portfolio GIF (FFmpeg)</summary>
+          <pre style="white-space:pre-wrap;margin-top:8px;font-size:13px;">
+# record a short mp4 (or screen capture) and convert to optimized gif
+ffmpeg -i demo.mp4 -vf "fps=15,scale=800:-1:flags=lanczos" -y demo_temp.gif
+# reduce colors and optimize
+gifsicle --optimize=3 demo_temp.gif -o letstry/static/demo.gif
+rm demo_temp.gif
+          </pre>
+          <p style="margin-top:8px;color:#94a3b8">Tip: Keep GIF under ~3MB for GitHub and portfolio pages.</p>
+        </details>
       </aside>
     </main>
 
