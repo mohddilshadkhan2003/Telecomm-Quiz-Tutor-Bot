@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="480" viewBox="0 0 800 480">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#06b6d4"/>
+      <stop offset="1" stop-color="#7c3aed"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="480" fill="#071025" rx="12"/>
+  <g transform="translate(32,32)">
+    <rect width="736" height="128" fill="url(#g)" rx="8" opacity="0.12"/>
+    <text x="20" y="42" fill="#e6eef8" font-family="Inter, sans-serif" font-size="20">Telecomm Quiz Tutor — Demo Preview</text>
+    <rect y="160" width="440" height="260" fill="#071025" stroke="#123" rx="10"/>
+    <g transform="translate(12,174)" fill="#94a3b8" font-family="Inter, sans-serif" font-size="14">
+      <text x="8" y="20">Question example: What is the billing cycle for Plan A?</text>
+      <text x="8" y="46">• Option 1: Monthly</text>
+      <text x="8" y="68">• Option 2: Quarterly</text>
+      <text x="8" y="90">• Option 3: Annual</text>
+    </g>
+    <rect x="464" y="160" width="240" height="260" rx="10" fill="#021026" stroke="#123"/>
+    <text x="476" y="188" fill="#e6eef8" font-family="Inter, sans-serif" font-size="14">Evaluation</text>
+    <text x="476" y="210" fill="#94a3b8" font-family="Inter, sans-serif" font-size="12">Correct: Monthly</text>
+    <text x="476" y="232" fill="#94a3b8" font-family="Inter, sans-serif" font-size="12">Score: 0.8</text>
+  </g>
+</svg>

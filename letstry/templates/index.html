@@ -7,59 +7,81 @@
     <link rel="stylesheet" href="/static/styles.css" />
   </head>
   <body>
-    <div class="app-shell">
-      <header class="hero">
+    <nav class="nav">
+      <div class="nav-inner">
+        <div class="brand">Telecomm Tutor</div>
+        <div class="nav-actions">
+          <a href="#how" class="nav-link">How it works</a>
+          <a href="#demo" class="nav-link">Demo</a>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="hero-inner">
         <div>
           <p class="eyebrow">Telecomm Learning</p>
-          <h1>Quiz + Tutor Bot</h1>
+          <h1>Interactive Quiz + Tutor Bot</h1>
           <p class="hero-copy">
-            Answer questions about telecom plans, then get personalized feedback and context-based explanations.
+            Get instant feedback and contextual explanations for telecom plan questions. Built with vector retrieval and LLM evaluation.
           </p>
+          <div class="hero-cta">
+            <button id="start-quiz" class="primary">Start Quiz</button>
+            <a href="#demo" class="muted-link">View demo</a>
+          </div>
         </div>
-      </header>
+        <div class="hero-shot">
+          <img src="/static/demo-screenshot.svg" alt="Demo screenshot" />
+        </div>
+      </div>
+    </header>
 
-      <main class="card-grid">
-        <section class="card quiz-card">
-          <div class="question-header">
-            <span id="question-counter"></span>
-            <h2 id="question-text"></h2>
+    <main class="card-grid">
+      <section class="card quiz-card">
+        <div class="question-header">
+          <span id="question-counter"></span>
+          <h2 id="question-text"></h2>
+        </div>
+
+        <form id="quiz-form">
+          <div id="options-container" class="options-list"></div>
+          <div class="answer-input">
+            <label for="answer-input">Your answer</label>
+            <input id="answer-input" name="answer" placeholder="Type your selected plan or concept..." />
           </div>
-
-          <form id="quiz-form">
-            <div id="options-container" class="options-list"></div>
-            <div class="answer-input">
-              <label for="answer-input">Your answer</label>
-              <input id="answer-input" name="answer" placeholder="Type your selected plan or concept..." />
-            </div>
-            <div class="button-row">
-              <button type="button" id="prev-question">Previous</button>
-              <button type="button" id="next-question">Next</button>
-              <button type="submit" id="submit-answer" class="primary">Submit Answer</button>
-            </div>
-          </form>
-
-          <div id="result-card" class="result-card hidden">
-            <h3>Evaluation</h3>
-            <p id="result-text"></p>
-            <div id="snippets" class="snippets"></div>
+          <div class="button-row">
+            <button type="button" id="prev-question">Previous</button>
+            <button type="button" id="next-question">Next</button>
+            <button type="submit" id="submit-answer" class="primary">Submit Answer</button>
           </div>
-        </section>
+        </form>
 
-        <section class="card info-card">
-          <h2>How it works</h2>
-          <ol>
-            <li>Choose the best answer from the telecom plan options.</li>
-            <li>Submit your answer, and the bot evaluates your response.</li>
-            <li>Receive a score, correct answer, and contextual learning notes.</li>
-          </ol>
-          <div class="info-box">
-            <strong>Run locally:</strong>
-            <code>python app.py</code>
-            <p>Then open <strong>http://127.0.0.1:5000</strong> in your browser.</p>
-          </div>
-        </section>
-      </main>
-    </div>
+        <div id="result-card" class="result-card hidden">
+          <h3>Evaluation</h3>
+          <p id="result-text"></p>
+          <div id="snippets" class="snippets"></div>
+        </div>
+      </section>
+
+      <aside class="card info-card" id="how">
+        <h2>How it works</h2>
+        <ol>
+          <li>Choose or type your answer to the question.</li>
+          <li>The system retrieves relevant plan snippets and asks the LLM to evaluate your response.</li>
+          <li>Receive a score, explanation, and evidence snippets for learning.</li>
+        </ol>
+
+        <div class="info-box">
+          <strong>Run locally:</strong>
+          <code>python app.py</code>
+          <p>Open <strong>http://127.0.0.1:5000</strong> in your browser.</p>
+        </div>
+
+        <h3 id="demo">Demo</h3>
+        <p>Below is a preview screenshot. Replace with a real demo GIF for portfolio pages.</p>
+        <img src="/static/demo-screenshot.svg" alt="demo" class="demo-shot" />
+      </aside>
+    </main>
 
     <script>
       const questions = JSON.parse('{{ questions|safe }}');
@@ -133,6 +155,10 @@
           )
           .join("");
         resultCard.classList.remove("hidden");
+      });
+
+      document.getElementById('start-quiz').addEventListener('click', () => {
+        window.scrollTo({ top: document.querySelector('.quiz-card').offsetTop - 20, behavior: 'smooth' });
       });
 
       renderQuestion();

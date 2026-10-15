@@ -26,32 +26,6 @@ Telecommunication learning often requires a mix of domain knowledge, contextual 
 - Explanation-driven feedback loop for self-improvement
 - Graceful fallback logic when no API key is configured
 
-## Tech stack
-
-- Python
-- Flask
-- OpenAI API
-- NumPy
-- Python-dotenv
-- HTML/CSS templates
-
-## Project structure
-
-```text
-letstry/
-├── app.py
-├── llm_client.py
-├── quiz_engine.py
-├── requirements.txt
-├── telecomm_tutor.py
-├── vector_db.py
-├── data/
-├── static/
-├── templates/
-├── __pycache__/
-└── README.md
-```
-
 ## Quick start
 
 1. Go to the project folder:
@@ -66,10 +40,18 @@ cd letstry
 pip install -r requirements.txt
 ```
 
-3. Set your OpenAI API key:
+3. Set your OpenAI API key (optional — the app has a local fallback if not provided):
+
+- macOS / Linux:
 
 ```bash
 export OPENAI_API_KEY="your_api_key_here"
+```
+
+- Windows (PowerShell):
+
+```powershell
+setx OPENAI_API_KEY "your_api_key_here"
 ```
 
 4. Start the app:
@@ -88,12 +70,6 @@ http://127.0.0.1:5000
 
 The project uses telecom plan information and quiz knowledge stored in the `data/` directory. These records are used to build the in-memory retrieval system and support answer evaluation.
 
-## Configuration notes
-
-- If `OPENAI_API_KEY` is not defined, the app still runs using a local fallback evaluation approach.
-- The vector database is created from the knowledge base when the app starts.
-- This is a strong foundation for building a more production-ready telecom tutor platform.
-
 ## Suggested enhancement roadmap
 
 - Add persistent database storage for quiz results and learner progress
@@ -105,11 +81,3 @@ The project uses telecom plan information and quiz knowledge stored in the `data
 ## Maintainer
 
 Developed and maintained by: `@mohddilshadkhan2003`
-
-## Contribution
-
-Contributions, issue reports, and feature suggestions are welcome.
-
----
-
-Built for intelligent telecom learning and modern educational tooling.

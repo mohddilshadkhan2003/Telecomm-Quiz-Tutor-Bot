@@ -9,106 +9,45 @@ A smart AI-powered telecommunication learning assistant that turns telecom plan 
   <img src="https://img.shields.io/badge/Status-Active-success" alt="Status Active" />
 </p>
 
-## Overview
+## Elevator pitch (for recruiters)
 
-This project is designed to help users learn telecom concepts through an interactive, question-based tutor experience. It loads telecom knowledge, builds a contextual vector database, asks targeted questions, evaluates answers, and provides explanation-driven feedback using AI.
+Built a lightweight, production-capable prototype of an AI-driven tutor that:
 
-The repository contains the full project implementation and supporting design documents for the telecommunication quiz tutor bot.
+- Converts telecom plan documentation into a contextual knowledge base
+- Generates targeted assessment questions and evaluates free-text answers
+- Uses vector retrieval + LLMs for context-aware explanations and feedback
 
-## Key features
+Why this matters: demonstrates system design, LLM integration, and user-facing product thinking — all valuable for engineering and product roles.
 
-- AI-powered telecom quiz generation from plan content
-- Context-aware retrieval for relevant telecom knowledge
-- Answer evaluation with OpenAI integration
-- Personalized feedback and explanations for incorrect answers
-- Browser-based interface for smooth interaction
-- Fallback local evaluation logic when no API key is configured
+## Screenshot / demo
 
-## Project structure
+![Demo screenshot](letstry/static/demo-screenshot.svg)
 
-```text
-Telecomm-Quiz-Tutor-Bot/
-├── README.md
-├── TELECOMM quiz_GenAI_HLD.docx
-├── telecomm_tutor_bot_G-AI_LLD.pdf
-├── Telecomm Quiz  Report(2)(1).pdf
-├── letstry/
-│   ├── app.py
-│   ├── llm_client.py
-│   ├── quiz_engine.py
-│   ├── requirements.txt
-│   ├── telecomm_tutor.py
-│   ├── vector_db.py
-│   ├── data/
-│   ├── static/
-│   ├── templates/
-│   └── README.md
-└── .gitignore
-```
+(Or run locally: `cd letstry && python app.py` and open http://127.0.0.1:5000)
 
-## Main application
+## Features (reformatted for portfolios)
 
-The actual chatbot and evaluation logic live inside the `letstry/` directory.
+- Contextual knowledge graph from telecom plan data
+- LLM-driven answer evaluation with human-readable explanations
+- Fast vector retrieval for contextual evidence snippets
+- Clean browser UI for live assessment and feedback
+- Fallback local evaluator so the app remains usable offline
 
-- `letstry/app.py` starts the Flask app
-- `letstry/quiz_engine.py` handles knowledge processing and context retrieval
-- `letstry/llm_client.py` manages OpenAI-based answer evaluation
-- `letstry/data/` stores telecom plan content and question data
+## Architecture (technical summary)
 
-## Quick start
+- Frontend: Minimal Flask + HTML/CSS (single-page interaction)
+- Backend: Flask app that loads knowledge, builds in-memory vector store, and exposes evaluation endpoints
+- LLM integration: `letstry/llm_client.py` — wraps OpenAI API calls and fallback behavior
+- Retrieval: `letstry/quiz_engine.py` + `letstry/vector_db.py` — build and query vectorized context
 
-1. Navigate to the project folder:
+This architecture highlights separation of concerns and a research-to-production flow: data -> vectorization -> retrieval -> LLM evaluation -> UI.
 
-```bash
-cd letstry
-```
+## How to present this in an interview
 
-2. Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-3. Set your environment variable:
-
-```bash
-export OPENAI_API_KEY="your_api_key_here"
-```
-
-4. Run the app:
-
-```bash
-python app.py
-```
-
-5. Open the app in your browser:
-
-```text
-http://127.0.0.1:5000
-```
-
-## Notes
-
-- If `OPENAI_API_KEY` is not provided, the application still runs with a local fallback logic for evaluation.
-- The knowledge base is loaded from the telecom dataset when the app starts.
-- This project is ideal for learning, prototyping, and extending into a production-grade telecom tutoring platform.
+- Walk through the architecture diagram above and explain trade-offs (in-memory vector store vs. persistence, local fallback for reliability, LLM costs).
+- Show the demo and point to the evaluation flow (question -> retrieve context -> LLM evaluate -> feedback + snippets).
+- Discuss future scaling steps (persist vector DB, add CI/CD, add authentication & analytics).
 
 ## Maintainer
 
-This repository is maintained by: `@mohddilshadkhan2003`
-
-## License
-
-A license file has not been added yet. It is recommended to add an open-source license such as MIT for clarity and reuse.
-
-## Future improvements
-
-- Add a persistent vector database
-- Add CI tests and lint checks
-- Improve UI/UX for desktop and mobile
-- Add user authentication and analytics
-- Support more telecom domains and advanced quiz flows
-
----
-
-Built for intelligent telecom upskilling and personalized learning.
+Maintained by `@mohddilshadkhan2003` — feel free to open issues or PRs.
