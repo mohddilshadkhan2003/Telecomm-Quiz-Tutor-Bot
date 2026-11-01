@@ -1,6 +1,6 @@
 # Telecomm Quiz Tutor Bot
 
-A smart AI-powered telecommunication learning assistant that turns telecom plan details into interactive quiz experiences, evaluates learner responses, and delivers targeted explanations to improve understanding.
+A smart AI-powered telecom learning assistant designed to turn telecom plan knowledge into interactive quiz-based learning experiences, evaluate learner responses, and explain concepts with evidence-backed feedback.
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white" alt="Python 3.10+" />
@@ -9,45 +9,195 @@ A smart AI-powered telecommunication learning assistant that turns telecom plan 
   <img src="https://img.shields.io/badge/Status-Active-success" alt="Status Active" />
 </p>
 
-## Elevator pitch (for recruiters)
+## Overview
 
-Built a lightweight, production-capable prototype of an AI-driven tutor that:
+Telecomm Quiz Tutor Bot is a lightweight AI learning project focused on telecom product education. It helps users understand telecom plans, services, and trade-offs by combining:
 
-- Converts telecom plan documentation into a contextual knowledge base
-- Generates targeted assessment questions and evaluates free-text answers
-- Uses vector retrieval + LLMs for context-aware explanations and feedback
+- telecom knowledge stored in structured data
+- semantic retrieval from the plan corpus
+- AI-powered answer evaluation
+- explanation-driven feedback for learning
 
-Why this matters: demonstrates system design, LLM integration, and user-facing product thinking — all valuable for engineering and product roles.
+This project is useful for:
 
-## Screenshot / demo
+- telecom training and onboarding
+- self-learning and concept review
+- AI demo showcases
+- portfolio and interview presentations
 
-![Demo screenshot](letstry/static/demo-screenshot.svg)
+## Why this project matters
 
-(Or run locally: `cd letstry && python app.py` and open http://127.0.0.1:5000)
+Telecom learning often involves understanding product details, service differences, and customer-specific requirements. This project simplifies the process by creating a guided loop:
 
-## Features (reformatted for portfolios)
+1. present a telecom question
+2. retrieve relevant context from the knowledge base
+3. evaluate the learner response
+4. provide feedback and relevant evidence
+5. reinforce understanding through explanation
 
-- Contextual knowledge graph from telecom plan data
-- LLM-driven answer evaluation with human-readable explanations
-- Fast vector retrieval for contextual evidence snippets
-- Clean browser UI for live assessment and feedback
-- Fallback local evaluator so the app remains usable offline
+## Key Features
 
-## Architecture (technical summary)
+- Telecom-specific quiz generation
+- Answer evaluation with AI-assisted feedback
+- Relevant context retrieval from telecom knowledge
+- Local fallback evaluation when OpenAI is unavailable
+- Minimal, clean Flask-based UI
+- Easy local setup and fast demo execution
 
-- Frontend: Minimal Flask + HTML/CSS (single-page interaction)
-- Backend: Flask app that loads knowledge, builds in-memory vector store, and exposes evaluation endpoints
-- LLM integration: `letstry/llm_client.py` — wraps OpenAI API calls and fallback behavior
-- Retrieval: `letstry/quiz_engine.py` + `letstry/vector_db.py` — build and query vectorized context
+## System Architecture
 
-This architecture highlights separation of concerns and a research-to-production flow: data -> vectorization -> retrieval -> LLM evaluation -> UI.
+```mermaid
+flowchart LR
+    A[Telecom Plan Data] --> B[Knowledge Loader]
+    B --> C[Vector DB Builder]
+    C --> D[Quiz Question]
+    D --> E[User Answer]
+    E --> F[Context Retrieval]
+    F --> G[LLM Evaluation / Local Fallback]
+    G --> H[Score + Explanation + Snippets]
+    H --> I[Web UI]
+```
 
-## How to present this in an interview
+## Data Flow
 
-- Walk through the architecture diagram above and explain trade-offs (in-memory vector store vs. persistence, local fallback for reliability, LLM costs).
-- Show the demo and point to the evaluation flow (question -> retrieve context -> LLM evaluate -> feedback + snippets).
-- Discuss future scaling steps (persist vector DB, add CI/CD, add authentication & analytics).
+```text
+1. Load telecom plan details from the JSON data source
+2. Build the in-memory document embeddings
+3. Select a quiz question for the learner
+4. Capture the user response
+5. Retrieve the most relevant telecom context
+6. Evaluate the answer with AI or fallback logic
+7. Display score, explanation, and supporting snippets
+```
+
+## Project Structure
+
+```text
+Telecomm-Quiz-Tutor-Bot/
+├── LICENSE
+├── README.md
+├── letstry/
+│   ├── app.py
+│   ├── llm_client.py
+│   ├── quiz_engine.py
+│   ├── vector_db.py
+│   ├── requirements.txt
+│   ├── data/
+│   │   └── plan_details.json
+│   ├── static/
+│   │   ├── demo-screenshot.svg
+│   │   ├── logo.svg
+│   │   └── styles.css
+│   └── templates/
+│       └── index.html
+├── scripts/
+│   └── make_demo_gif.sh
+├── TELECOMM quiz_GenAI_HLD.docx
+├── telecomm_tutor_bot_G-AI_LLD.pdf
+├── Telecomm Quiz  Report(2)(1).pdf
+└── additional design and research documents
+```
+
+## Tech Stack
+
+- Python 3.10+
+- Flask
+- NumPy
+- OpenAI API
+- python-dotenv
+- HTML / CSS / JavaScript
+
+## Demo Preview
+
+![Demo Screenshot](letstry/static/demo-screenshot.svg)
+
+## Getting Started
+
+Follow the steps below to run the project on your local machine.
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/mohddilshadkhan2003/Telecomm-Quiz-Tutor-Bot.git
+cd Telecomm-Quiz-Tutor-Bot
+```
+
+### 2. Create a virtual environment
+
+#### macOS / Linux
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+#### Windows (PowerShell)
+
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+```
+
+### 3. Install dependencies
+
+```bash
+cd letstry
+pip install -r requirements.txt
+```
+
+### 4. Set up environment variables
+
+The application can run without an API key using its local fallback evaluator, but you can enable OpenAI-based evaluation as well.
+
+#### macOS / Linux
+
+```bash
+export OPENAI_API_KEY="your_openai_api_key_here"
+```
+
+#### Windows (PowerShell)
+
+```powershell
+$env:OPENAI_API_KEY = "your_openai_api_key_here"
+```
+
+### 5. Run the app
+
+```bash
+python app.py
+```
+
+### 6. Open in your browser
+
+```text
+http://127.0.0.1:5000
+```
+
+## How to Use
+
+- open the app in the browser
+- choose a telecom quiz question
+- type or select your answer
+- view the evaluation result, score, and supporting context
+- review the explanation and snippets to improve understanding
+
+## Future Enhancements
+
+- user authentication and dashboards
+- database-backed quiz history and progress tracking
+- analytics for learner performance
+- production-grade vector search integration
+- CI/CD setup and automated tests
+- more telecom modules and training scenarios
 
 ## Maintainer
 
-Maintained by `@mohddilshadkhan2003` — feel free to open issues or PRs.
+Built and maintained by: Dilshad Khan
+
+## Project Status
+
+This project is a strong AI-learning prototype with a practical telecom use case, clean frontend interaction, and a useful retrieval + evaluation flow. It is well-suited for demonstration, learning, and portfolio presentation.
+
+---
+
+This repository demonstrates how a simple AI-assisted app can combine telecom knowledge, product understanding, and interactive learning into a practical and user-friendly experience.
