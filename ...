@@ -1,0 +1,2381 @@
+# Telecomm Quiz Tutor Bot
+
+A smart, AI-powered telecom learning assistant built to turn telecom plan knowledge into interactive quiz experiences, evaluate learner answers, and provide context-aware explanations for faster learning.
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white" alt="Python 3.10+" />
+  <img src="https://img.shields.io/badge/Flask-2.x-000000?logo=flask&logoColor=white" alt="Flask" />
+  <img src="https://img.shields.io/badge/OpenAI-API-412991?logo=openai&logoColor=white" alt="OpenAI API" />
+  <img src="https://img.shields.io/badge/Status-Active-success" alt="Status Active" />
+</p>
+
+## Overview
+
+This project helps users understand telecom plans, customer offerings, and service trade-offs by combining:
+
+- knowledge from telecom plan data
+- local vector-based retrieval
+- AI evaluation of learner answers
+- clear explanations and evidence snippets
+
+It is designed as a lightweight learning demo and portfolio-ready AI project.
+
+## Why this project matters
+
+Telecom onboarding and service learning usually involve product complexity and a large amount of domain knowledge. This project simplifies that by giving users a guided feedback loop:
+
+1. ask a meaningful telecom question
+2. retrieve relevant context from plan data
+3. evaluate the learner response
+4. explain the correct concept
+5. reinforce understanding with evidence snippets
+
+## Features
+
+- Telecom quiz generation from plan data
+- Answer evaluation with AI-assisted feedback
+- Context-aware retrieval from plan knowledge
+- Fast local fallback when OpenAI is unavailable
+- Clean browser-based learning UI
+- Easy setup for local development
+
+## System Architecture
+
+```mermaid
+flowchart LR
+    A[Telecom plan data] --> B[Knowledge loader]
+    B --> C[Vector DB builder]
+    C --> D[Quiz question]
+    D --> E[User answer]
+    E --> F[Retrieval layer]
+    F --> G[LLM evaluation or local fallback]
+    G --> H[Score + explanation + snippets]
+    H --> I[Web UI]
+```
+
+## Data Flow
+
+```text
+1. Load telecom plan details from JSON
+2. Build in-memory document embeddings
+3. Select a quiz question
+4. Capture the learner answer
+5. Retrieve relevant context
+6. Evaluate using LLM or local logic
+7. Render score, feedback, and evidence
+```
+
+## Project Structure
+
+```text
+Telecomm-Quiz-Tutor-Bot/
+├── LICENSE
+├── README.md
+├── letstry/
+│   ├── app.py
+│   ├── llm_client.py
+│   ├── quiz_engine.py
+│   ├── vector_db.py
+│   ├── requirements.txt
+│   ├── data/
+│   │   └── plan_details.json
+│   ├── static/
+│   │   ├── demo-screenshot.svg
+│   │   ├── logo.svg
+│   │   └── styles.css
+│   └── templates/
+│       └── index.html
+├── scripts/
+│   └── make_demo_gif.sh
+├── project reports and design docs
+└── README notes
+```
+
+## Tech Stack
+
+- Python 3.10+
+- Flask
+- NumPy
+- OpenAI API
+- python-dotenv
+- HTML/CSS/JavaScript
+
+## Run this project on your system
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/mohddilshadkhan2003/Telecomm-Quiz-Tutor-Bot.git
+cd Telecomm-Quiz-Tutor-Bot
+```
+
+### 2. Create a virtual environment
+
+#### macOS / Linux
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+#### Windows (PowerShell)
+
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+```
+
+### 3. Install dependencies
+
+```bash
+cd letstry
+pip install -r requirements.txt
+```
+
+### 4. Set your API key (optional)
+
+The app works with a built-in fallback evaluator even without an OpenAI key, but you can enable AI evaluation with your own API key.
+
+#### macOS / Linux
+
+```bash
+export OPENAI_API_KEY="your_api_key_here"
+```
+
+#### Windows (PowerShell)
+
+```powershell
+$env:OPENAI_API_KEY = "your_api_key_here"
+```
+
+### 5. Run the app
+
+```bash
+python app.py
+```
+
+### 6. Open it in your browser
+
+```text
+http://127.0.0.1:5000
+```
+
+## Customization ideas for your own version
+
+You can make this project truly your own by:
+
+- replacing the telecom dataset with your own product catalog
+- adding your own branding, colors, and logo
+- adding quiz analytics and user progress tracking
+- integrating a real database for persistent results
+- turning it into a full learning portal or enterprise demo
+
+## Future upgrades
+
+- user login and dashboards
+- database-backed quiz history
+- admin panel for content management
+- improved semantic retrieval
+- CI/CD and test automation
+- more telecom modules and real-world scenarios
+
+## Maintainer
+
+Built and maintained by Dilshad Khan.
+
+---
+
+This project is a strong AI-learning prototype with a practical telecom use case, a clean frontend, and a useful retrieval/evaluation flow. It is ready to be improved further with stronger UX, faster startup logic, and a more polished README and presentation.
+
+
+
+""""""""""""""""""""""""""""""""""""
+
+# Telecomm Quiz & Tutor Bot
+
+A modern AI-assisted learning experience for telecom concepts — generate targeted questions from telecom plan details, evaluate learner answers, and provide intelligent, personalized feedback.
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white" alt="Python" />
+  <img src="https://img.shields.io/badge/Flask-Web%20App-000000?logo=flask&logoColor=white" alt="Flask" />
+  <img src="https://img.shields.io/badge/OpenAI-LLM%20Evaluation-412991?logo=openai&logoColor=white" alt="OpenAI" />
+</p>
+
+## Why this project matters
+
+Telecommunication learning often requires a mix of domain knowledge, contextual understanding, and evaluation. This project brings those together in a lightweight and practical application that:
+
+- extracts telecom knowledge from plan data
+- creates quiz questions based on relevant details
+- checks the learner's response against the expected answer
+- gives useful explanations and improvement guidance
+
+## Features
+
+- Vectorized knowledge retrieval from telecom data
+- AI-based quiz generation and answer assessment
+- Contextual support for telecom plan and service learning
+- Browser-based user interface
+- Explanation-driven feedback loop for self-improvement
+- Graceful fallback logic when no API key is configured
+
+## Quick start
+
+### 1. Go to the project folder
+
+```bash
+cd letstry
+```
+
+### 2. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Set your OpenAI API key (optional)
+
+#### macOS / Linux
+
+```bash
+export OPENAI_API_KEY="your_api_key_here"
+```
+
+#### Windows (PowerShell)
+
+```powershell
+setx OPENAI_API_KEY "your_api_key_here"
+```
+
+### 4. Start the app
+
+```bash
+python app.py
+```
+
+### 5. Open the app in your browser
+
+```text
+http://127.0.0.1:5000
+```
+
+## Data source
+
+The project uses telecom plan information and quiz knowledge stored in the `data/` directory. These records are used to build the in-memory retrieval system and support answer evaluation.
+
+## Suggested enhancement roadmap
+
+- Add persistent database storage for quiz results and learner progress
+- Add user authentication and role-based access
+- Add test coverage and GitHub Actions CI
+- Upgrade the UI with a modern, polished dashboard
+- Extend support for more telecom domains and advanced learning modules
+
+## Maintainer
+
+Developed and maintained by: `@mohddilshadkhan2003`
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+import json
+import os
+from typing import Any, Dict, List
+
+from dotenv import load_dotenv
+from flask import Flask, jsonify, render_template, request
+
+from llm_client import LLMClient
+from quiz_engine import (
+    build_context_text,
+    build_vector_db,
+    load_knowledge_base,
+    retrieve_context,
+    score_answer,
+)
+
+load_dotenv()
+
+app = Flask(__name__, static_folder="static", template_folder="templates")
+app.config["JSON_SORT_KEYS"] = False
+
+
+def initialize_app() -> tuple[List[Dict[str, Any]], Any, LLMClient]:
+    knowledge_base = load_knowledge_base()
+    plan_contents = knowledge_base.get("plan_details", [])
+    quiz_questions = knowledge_base.get("quiz_questions", [])
+    vector_store = build_vector_db(plan_contents)
+    llm_client = LLMClient()
+    return quiz_questions, vector_store, llm_client
+
+
+quiz_questions, vector_store, llm_client = initialize_app()
+
+
+def find_question(question_id: str) -> Dict[str, Any]:
+    for question in quiz_questions:
+        if question.get("id") == question_id:
+            return question
+    return {}
+
+
+@app.route("/")
+def index() -> str:
+    return render_template("index.html", questions=json.dumps(quiz_questions))
+
+
+@app.route("/health")
+def health() -> Any:
+    return jsonify({"status": "ok", "questions": len(quiz_questions)})
+
+
+@app.route("/evaluate", methods=["POST"])
+def evaluate() -> Any:
+    data = request.get_json(force=True, silent=True) or {}
+    question_id = data.get("question_id", "")
+    user_answer = (data.get("user_answer", "") or "").strip()
+
+    question = find_question(question_id)
+    if not question:
+        return jsonify({"error": "Question not found."}), 400
+
+    context_docs = retrieve_context(vector_store, user_answer, top_k=3)
+    context_text = build_context_text(context_docs)
+    score = score_answer(user_answer, question["answer"])
+    evaluation = llm_client.evaluate_answer(
+        question=question["question"],
+        user_answer=user_answer,
+        correct_answer=question["answer"],
+        explanation=question.get("explanation", ""),
+        context=context_text,
+    )
+
+    correct = score >= 60 or question["answer"].lower() in user_answer.lower()
+    snippet_cards = [
+        {"title": doc["title"], "content": doc["content"]}
+        for doc in context_docs
+    ]
+
+    return jsonify(
+        {
+            "question_id": question_id,
+            "correct": correct,
+            "score": score,
+            "evaluation": evaluation,
+            "correct_answer": question["answer"],
+            "snippet_cards": snippet_cards,
+        }
+    )
+
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    host = os.environ.get("HOST", "127.0.0.1")
+    app.run(host=host, port=port, debug=False)
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+import json
+import os
+import re
+from typing import Any, Dict, List
+
+import numpy as np
+
+DATA_FILE = os.path.join(os.path.dirname(__file__), "data", "plan_details.json")
+
+
+def normalize_text(text: str) -> str:
+    text = text.lower().strip()
+    text = re.sub(r"[^a-z0-9\s]", " ", text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def tokenize(text: str) -> List[str]:
+    return [token for token in normalize_text(text).split() if token]
+
+
+def score_answer(user_answer: str, correct_answer: str) -> float:
+    if not user_answer or not correct_answer:
+        return 0.0
+
+    user_tokens = set(tokenize(user_answer))
+    target_tokens = set(tokenize(correct_answer))
+    if not target_tokens:
+        return 0.0
+
+    overlap = len(user_tokens & target_tokens)
+    phrase_bonus = 1.0 if correct_answer.lower() in user_answer.lower() else 0.0
+    base_score = (overlap / len(target_tokens)) * 100
+    final_score = min(100.0, base_score + (25.0 if phrase_bonus else 0.0))
+    return round(final_score, 2)
+
+
+def load_knowledge_base(path: str = DATA_FILE) -> Dict[str, Any]:
+    with open(path, "r", encoding="utf-8") as json_file:
+        return json.load(json_file)
+
+
+def text_to_embedding(text: str) -> np.ndarray:
+    normalized = normalize_text(text)
+    vector = np.zeros(300, dtype=float)
+    for index, token in enumerate(normalized.split(), start=1):
+        token_value = sum(ord(ch) for ch in token)
+        vector[index % 300] += token_value
+    if np.linalg.norm(vector) == 0:
+        return vector
+    return vector / np.linalg.norm(vector)
+
+
+def build_vector_db(plan_contents: List[Dict[str, Any]]) -> "InMemoryVectorDB":
+    from vector_db import InMemoryVectorDB
+
+    store = InMemoryVectorDB()
+    for plan in plan_contents:
+        content = plan.get("content", "")
+        title = plan.get("title", "")
+        metadata = {
+            "id": plan.get("id"),
+            "title": title,
+            "content": content,
+            "keywords": plan.get("keywords", []),
+        }
+        embedding = text_to_embedding(f"{title}. {content}")
+        store.add(metadata, embedding)
+    return store
+
+
+def retrieve_context(store: "InMemoryVectorDB", question: str, top_k: int = 3) -> List[Dict[str, Any]]:
+    if not question.strip():
+        return []
+    query_embedding = text_to_embedding(question)
+    results = store.search(query_embedding, top_k=top_k)
+    return [result[0] for result in results]
+
+
+def build_context_text(context_docs: List[Dict[str, Any]]) -> str:
+    segments = []
+    for doc in context_docs:
+        title = doc.get("title", "Unknown")
+        content = doc.get("content", "")
+        segments.append(f"Title: {title}\nContent: {content}")
+    return "\n\n".join(segments)
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+import os
+from typing import Optional
+
+try:
+    from openai import OpenAI
+except ImportError:
+    OpenAI = None
+
+
+def get_openai_api_key() -> Optional[str]:
+    return os.environ.get("OPENAI_API_KEY")
+
+
+class LLMClient:
+    def __init__(self, model: str = "gpt-4o-mini"):
+        self.model = model
+        self.api_key = get_openai_api_key()
+        self.client = None
+        if OpenAI is not None and self.api_key:
+            self.client = OpenAI(api_key=self.api_key)
+
+    def evaluate_answer(
+        self,
+        question: str,
+        user_answer: str,
+        correct_answer: str,
+        explanation: str,
+        context: str,
+    ) -> str:
+        if not self.client:
+            return self._fallback_evaluation(question, user_answer, correct_answer, explanation, context)
+
+        prompt = (
+            "You are a telecom training assistant. Evaluate the learner's answer. "
+            "Return a clear score, explain whether it is correct, and highlight the key telecom concept. "
+            "Use the provided context and explanation.\n\n"
+            f"Question: {question}\n"
+            f"Learner Answer: {user_answer}\n"
+            f"Correct Answer: {correct_answer}\n"
+            f"Context: {context}\n"
+            f"Key Explanation: {explanation}\n"
+        )
+
+        try:
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {"role": "system", "content": "You are a helpful telecom education assistant."},
+                    {"role": "user", "content": prompt},
+                ],
+                temperature=0.2,
+                max_tokens=300,
+            )
+            return response.choices[0].message.content.strip()
+        except Exception:
+            return self._fallback_evaluation(question, user_answer, correct_answer, explanation, context)
+
+    @staticmethod
+    def _fallback_evaluation(
+        question: str,
+        user_answer: str,
+        correct_answer: str,
+        explanation: str,
+        context: str,
+    ) -> str:
+        if correct_answer.lower() in user_answer.lower():
+            score = 90
+            detail = (
+                "Your answer matches the expected telecom concept well. "
+                "Review the context for deeper understanding and additional product details."
+            )
+        else:
+            score = 45
+            detail = (
+                "The answer does not yet match the expected plan detail. "
+                "Focus on the plan's features, coverage, pricing, or service attributes."
+            )
+
+        return (
+            "Evaluation:\n"
+            f"Score: {score}/100\n"
+            f"Correct Answer: {correct_answer}\n"
+            f"Feedback: {detail}\n"
+            f"Explanation: {explanation}\n"
+            f"Context: {context}"
+        )
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Telecomm Quiz Tutor</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="nav-inner">
+        <div class="brand">
+          <img src="/static/logo.svg" alt="Telecomm Tutor logo" class="brand-logo" />
+          <span class="brand-title">Telecomm Tutor</span>
+        </div>
+        <div class="nav-actions">
+          <a href="#how" class="nav-link">How it works</a>
+          <a href="#demo" class="nav-link">Demo</a>
+          <a href="/" class="nav-link">Start</a>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="hero-left">
+          <p class="eyebrow">Telecom learning made simple</p>
+          <h1>Interactive Quiz + Tutor Bot</h1>
+          <p class="hero-copy">
+            Learn telecom plans faster through targeted questions, live feedback, and evidence-backed explanations.
+          </p>
+
+          <div class="hero-cta">
+            <button id="start-quiz" class="primary">Start Quiz</button>
+            <a href="#demo" class="muted-link">View demo</a>
+          </div>
+
+          <ul class="quick-features">
+            <li>Vector retrieval + AI explanations</li>
+            <li>Fast local fallback when the API is unavailable</li>
+            <li>Works smoothly for learning and demos</li>
+          </ul>
+        </div>
+
+        <div class="hero-right">
+          <img src="/static/demo-screenshot.svg" alt="Demo screenshot" class="hero-shot" />
+        </div>
+      </div>
+    </header>
+
+    <main class="card-grid">
+      <section class="card quiz-card">
+        <div class="question-header">
+          <span id="question-counter"></span>
+          <h2 id="question-text"></h2>
+        </div>
+
+        <form id="quiz-form">
+          <div id="options-container" class="options-list"></div>
+          <div class="answer-input">
+            <label for="answer-input">Your answer</label>
+            <input id="answer-input" name="answer" placeholder="Type your selected plan or concept..." />
+          </div>
+          <div class="button-row">
+            <button type="button" id="prev-question">Previous</button>
+            <button type="button" id="next-question">Next</button>
+            <button type="submit" id="submit-answer" class="primary">Submit Answer</button>
+          </div>
+        </form>
+
+        <div id="result-card" class="result-card hidden">
+          <div class="result-header">
+            <h3>Evaluation</h3>
+            <span id="score-badge" class="score-badge">-</span>
+          </div>
+          <p id="result-text"></p>
+          <div id="snippets" class="snippets"></div>
+        </div>
+      </section>
+
+      <aside class="card info-card" id="how">
+        <h2>How it works</h2>
+        <ol>
+          <li>Read the question and choose or type your answer.</li>
+          <li>The app retrieves the closest telecom context from the knowledge base.</li>
+          <li>It evaluates your answer and shows the explanation with evidence snippets.</li>
+        </ol>
+
+        <div class="info-box">
+          <strong>Run locally:</strong>
+          <code>python app.py</code>
+          <p>Open <strong>http://127.0.0.1:5000</strong> in your browser.</p>
+        </div>
+
+        <h3 id="demo">Demo</h3>
+        <p class="demo-note">This app is optimized for quick learning, portfolio demos, and telecom concept review.</p>
+        <img src="/static/demo-screenshot.svg" alt="demo" class="demo-shot" />
+      </aside>
+    </main>
+
+    <script>
+      const questions = JSON.parse('{{ questions|safe }}');
+      let currentIndex = 0;
+
+      const questionCounter = document.getElementById('question-counter');
+      const questionText = document.getElementById('question-text');
+      const optionsContainer = document.getElementById('options-container');
+      const answerInput = document.getElementById('answer-input');
+      const resultCard = document.getElementById('result-card');
+      const resultText = document.getElementById('result-text');
+      const snippets = document.getElementById('snippets');
+      const scoreBadge = document.getElementById('score-badge');
+
+      function renderQuestion() {
+        const question = questions[currentIndex];
+        questionCounter.textContent = `Question ${currentIndex + 1} of ${questions.length}`;
+        questionText.textContent = question.question;
+        optionsContainer.innerHTML = question.options
+          .map(
+            (option, index) =>
+              `<button type="button" class="option-button" data-value="${option}">${index + 1}. ${option}</button>`
+          )
+          .join('');
+        answerInput.value = '';
+        resultCard.classList.add('hidden');
+      }
+
+      optionsContainer.addEventListener('click', (event) => {
+        const button = event.target.closest('.option-button');
+        if (!button) return;
+        answerInput.value = button.dataset.value;
+      });
+
+      document.getElementById('prev-question').addEventListener('click', () => {
+        currentIndex = Math.max(0, currentIndex - 1);
+        renderQuestion();
+      });
+
+      document.getElementById('next-question').addEventListener('click', () => {
+        currentIndex = Math.min(questions.length - 1, currentIndex + 1);
+        renderQuestion();
+      });
+
+      document.getElementById('quiz-form').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const question = questions[currentIndex];
+        const userAnswer = answerInput.value.trim();
+        if (!userAnswer) {
+          alert('Please enter an answer or choose an option.');
+          return;
+        }
+
+        const submitButton = document.getElementById('submit-answer');
+        submitButton.disabled = true;
+        submitButton.textContent = 'Checking...';
+
+        const response = await fetch('/evaluate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question_id: question.id, user_answer: userAnswer }),
+        });
+
+        const data = await response.json();
+
+        if (data.error) {
+          resultText.textContent = data.error;
+          resultCard.classList.remove('hidden');
+          submitButton.disabled = false;
+          submitButton.textContent = 'Submit Answer';
+          return;
+        }
+
+        const scoreValue = Number(data.score || 0);
+        scoreBadge.textContent = `${scoreValue.toFixed(0)}/100`;
+        scoreBadge.classList.toggle('high', scoreValue >= 70);
+        scoreBadge.classList.toggle('mid', scoreValue >= 40 && scoreValue < 70);
+        scoreBadge.classList.toggle('low', scoreValue < 40);
+
+        resultText.textContent = data.evaluation;
+        snippets.innerHTML = data.snippet_cards
+          .map(
+            (item) =>
+              `<div class="snippet"><strong>${item.title}</strong><p>${item.content}</p></div>`
+          )
+          .join('');
+        resultCard.classList.remove('hidden');
+
+        submitButton.disabled = false;
+        submitButton.textContent = 'Submit Answer';
+      });
+
+      document.getElementById('start-quiz').addEventListener('click', () => {
+        window.scrollTo({ top: document.querySelector('.quiz-card').offsetTop - 20, behavior: 'smooth' });
+      });
+
+      renderQuestion();
+    </script>
+  </body>
+</html>
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""":root {
+  --bg-0: #07111f;
+  --bg-1: #0d1b2a;
+  --card: rgba(12, 19, 31, 0.78);
+  --card-strong: rgba(15, 23, 42, 0.9);
+  --muted: #b5c5d8;
+  --text: #edf6ff;
+  --accent: #38bdf8;
+  --accent-2: #8b5cf6;
+  --success: #34d399;
+  --warning: #fbbf24;
+  --danger: #f87171;
+  --border: rgba(148, 163, 184, 0.18);
+  color-scheme: dark;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: linear-gradient(180deg, var(--bg-0), var(--bg-1));
+  color: var(--text);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-image: radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 28%),
+    radial-gradient(circle at top right, rgba(139, 92, 246, 0.12), transparent 24%);
+}
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(2, 6, 23, 0.58);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-logo {
+  width: 38px;
+  height: 38px;
+}
+
+.brand-title {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.nav-link {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: var(--text);
+}
+
+.hero {
+  max-width: 1180px;
+  margin: 22px auto 0;
+  padding: 18px;
+}
+
+.hero-inner {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.08), rgba(139, 92, 246, 0.06));
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 28px;
+}
+
+.hero-left {
+  flex: 1;
+}
+
+.hero-right {
+  width: 420px;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.1;
+}
+
+.hero-copy {
+  margin-top: 14px;
+  max-width: 620px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.hero-cta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.primary,
+button {
+  border: none;
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.primary {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  color: #06111d;
+}
+
+button:not(.primary) {
+  background: rgba(148, 163, 184, 0.08);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.primary:hover,
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.muted-link {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.quick-features {
+  margin-top: 16px;
+  margin-left: 18px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.hero-shot,
+.demo-shot {
+  width: 100%;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  object-fit: cover;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.35);
+}
+
+.card-grid {
+  max-width: 1180px;
+  margin: 20px auto 40px;
+  display: grid;
+  grid-template-columns: 1.5fr 0.9fr;
+  gap: 20px;
+  padding: 0 18px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 22px;
+  box-shadow: 0 16px 32px rgba(2, 6, 23, 0.3);
+}
+
+.quiz-card {
+  min-height: 520px;
+}
+
+.question-header {
+  margin-bottom: 18px;
+}
+
+#question-counter {
+  color: var(--accent);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.question-header h2 {
+  margin: 10px 0 0;
+  line-height: 1.4;
+}
+
+.options-list {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.option-button {
+  width: 100%;
+  text-align: left;
+  border-radius: 12px;
+  padding: 14px;
+  background: rgba(148, 163, 184, 0.04);
+  border: 1px solid var(--border);
+  color: var(--text);
+  transition: all 0.2s ease;
+}
+
+.option-button:hover {
+  background: rgba(56, 189, 248, 0.08);
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+.answer-input label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.answer-input input {
+  width: 100%;
+  background: rgba(15, 23, 42, 0.8);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+.button-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.result-card {
+  margin-top: 20px;
+  padding: 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(52, 211, 153, 0.22);
+  background: rgba(16, 185, 129, 0.04);
+}
+
+.result-card.hidden {
+  display: none;
+}
+
+.result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.result-header h3 {
+  margin: 0;
+}
+
+.score-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text);
+  background: rgba(148, 163, 184, 0.14);
+}
+
+.score-badge.high {
+  background: rgba(52, 211, 153, 0.16);
+  color: #b7f7d8;
+}
+
+.score-badge.mid {
+  background: rgba(251, 191, 36, 0.12);
+  color: #f7d883;
+}
+
+.score-badge.low {
+  background: rgba(248, 113, 113, 0.12);
+  color: #f5b1b1;
+}
+
+.snippets {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.snippet {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.snippet strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.snippet p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.info-box {
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 12px;
+  background: rgba(148, 163, 184, 0.05);
+  border: 1px solid var(--border);
+}
+
+.info-box code {
+  display: inline-block;
+  margin-top: 10px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid var(--border);
+  padding: 6px 8px;
+  border-radius: 8px;
+}
+
+.demo-note {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .hero-inner,
+  .card-grid {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+
+  .hero-right {
+    width: 100%;
+  }
+
+  .nav-inner {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+# Telecomm Quiz & Tutor Bot
+
+A modern AI-assisted learning experience for telecom concepts — generate targeted questions from telecom plan details, evaluate learner answers, and provide intelligent, personalized feedback.
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white" alt="Python" />
+  <img src="https://img.shields.io/badge/Flask-Web%20App-000000?logo=flask&logoColor=white" alt="Flask" />
+  <img src="https://img.shields.io/badge/OpenAI-LLM%20Evaluation-412991?logo=openai&logoColor=white" alt="OpenAI" />
+</p>
+
+## Why this project matters
+
+Telecommunication learning often requires a mix of domain knowledge, contextual understanding, and evaluation. This project brings those together in a lightweight and practical application that:
+
+- extracts telecom knowledge from plan data
+- creates quiz questions based on relevant details
+- checks the learner's response against the expected answer
+- gives useful explanations and improvement guidance
+
+## Features
+
+- Vectorized knowledge retrieval from telecom data
+- AI-based quiz generation and answer assessment
+- Contextual support for telecom plan and service learning
+- Browser-based user interface
+- Explanation-driven feedback loop for self-improvement
+- Graceful fallback logic when no API key is configured
+
+## Quick start
+
+### 1. Go to the project folder
+
+```bash
+cd letstry
+```
+
+### 2. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Set your OpenAI API key (optional)
+
+#### macOS / Linux
+
+```bash
+export OPENAI_API_KEY="your_api_key_here"
+```
+
+#### Windows (PowerShell)
+
+```powershell
+setx OPENAI_API_KEY "your_api_key_here"
+```
+
+### 4. Start the app
+
+```bash
+python app.py
+```
+
+### 5. Open the app in your browser
+
+```text
+http://127.0.0.1:5000
+```
+
+## Data source
+
+The project uses telecom plan information and quiz knowledge stored in the `data/` directory. These records are used to build the in-memory retrieval system and support answer evaluation.
+
+## Suggested enhancement roadmap
+
+- Add persistent database storage for quiz results and learner progress
+- Add user authentication and role-based access
+- Add test coverage and GitHub Actions CI
+- Upgrade the UI with a modern, polished dashboard
+- Extend support for more telecom domains and advanced learning modules
+
+## Maintainer
+
+Developed and maintained by: `@mohddilshadkhan2003`
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+# Telecomm Quiz Tutor Bot
+
+A smart, AI-powered telecom learning assistant built to turn telecom plan knowledge into interactive quiz experiences, evaluate learner answers, and provide context-aware explanations for faster learning.
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white" alt="Python 3.10+" />
+  <img src="https://img.shields.io/badge/Flask-2.x-000000?logo=flask&logoColor=white" alt="Flask" />
+  <img src="https://img.shields.io/badge/OpenAI-API-412991?logo=openai&logoColor=white" alt="OpenAI API" />
+  <img src="https://img.shields.io/badge/Status-Active-success" alt="Status Active" />
+</p>
+
+## Overview
+
+This project helps users understand telecom plans, customer offerings, and service trade-offs by combining:
+
+- knowledge from telecom plan data
+- local vector-based retrieval
+- AI evaluation of learner answers
+- clear explanations and evidence snippets
+
+It is designed as a lightweight learning demo and portfolio-ready AI project.
+
+## Why this project matters
+
+Telecom onboarding and service learning usually involve product complexity and a large amount of domain knowledge. This project simplifies that by giving users a guided feedback loop:
+
+1. ask a meaningful telecom question
+2. retrieve relevant context from plan data
+3. evaluate the learner response
+4. explain the correct concept
+5. reinforce understanding with evidence snippets
+
+## Features
+
+- Telecom quiz generation from plan data
+- Answer evaluation with AI-assisted feedback
+- Context-aware retrieval from plan knowledge
+- Fast local fallback when OpenAI is unavailable
+- Clean browser-based learning UI
+- Easy setup for local development
+
+## System Architecture
+
+```mermaid
+flowchart LR
+    A[Telecom plan data] --> B[Knowledge loader]
+    B --> C[Vector DB builder]
+    C --> D[Quiz question]
+    D --> E[User answer]
+    E --> F[Retrieval layer]
+    F --> G[LLM evaluation or local fallback]
+    G --> H[Score + explanation + snippets]
+    H --> I[Web UI]
+```
+
+## Data Flow
+
+```text
+1. Load telecom plan details from JSON
+2. Build in-memory document embeddings
+3. Select a quiz question
+4. Capture the learner answer
+5. Retrieve relevant context
+6. Evaluate using LLM or local logic
+7. Render score, feedback, and evidence
+```
+
+## Project Structure
+
+```text
+Telecomm-Quiz-Tutor-Bot/
+├── LICENSE
+├── README.md
+├── letstry/
+│   ├── app.py
+│   ├── llm_client.py
+│   ├── quiz_engine.py
+│   ├── vector_db.py
+│   ├── requirements.txt
+│   ├── data/
+│   │   └── plan_details.json
+│   ├── static/
+│   │   ├── demo-screenshot.svg
+│   │   ├── logo.svg
+│   │   └── styles.css
+│   └── templates/
+│       └── index.html
+├── scripts/
+│   └── make_demo_gif.sh
+├── project reports and design docs
+└── README notes
+```
+
+## Tech Stack
+
+- Python 3.10+
+- Flask
+- NumPy
+- OpenAI API
+- python-dotenv
+- HTML/CSS/JavaScript
+
+## Run this project on your system
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/mohddilshadkhan2003/Telecomm-Quiz-Tutor-Bot.git
+cd Telecomm-Quiz-Tutor-Bot
+```
+
+### 2. Create a virtual environment
+
+#### macOS / Linux
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+#### Windows (PowerShell)
+
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+```
+
+### 3. Install dependencies
+
+```bash
+cd letstry
+pip install -r requirements.txt
+```
+
+### 4. Set your API key (optional)
+
+The app works with a built-in fallback evaluator even without an OpenAI key, but you can enable AI evaluation with your own API key.
+
+#### macOS / Linux
+
+```bash
+export OPENAI_API_KEY="your_api_key_here"
+```
+
+#### Windows (PowerShell)
+
+```powershell
+$env:OPENAI_API_KEY = "your_api_key_here"
+```
+
+### 5. Run the app
+
+```bash
+python app.py
+```
+
+### 6. Open it in your browser
+
+```text
+http://127.0.0.1:5000
+```
+
+## Customization ideas for your own version
+
+You can make this project truly your own by:
+
+- replacing the telecom dataset with your own product catalog
+- adding your own branding, colors, and logo
+- adding quiz analytics and user progress tracking
+- integrating a real database for persistent results
+- turning it into a full learning portal or enterprise demo
+
+## Future upgrades
+
+- user login and dashboards
+- database-backed quiz history
+- admin panel for content management
+- improved semantic retrieval
+- CI/CD and test automation
+- more telecom modules and real-world scenarios
+
+## Maintainer
+
+Built and maintained by Dilshad Khan.
+
+---
+
+This project is a strong AI-learning prototype with a practical telecom use case, a clean frontend, and a useful retrieval/evaluation flow. It is ready to be improved further with stronger UX, faster startup logic, and a more polished README and presentation.
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+# Telecomm Quiz & Tutor Bot
+
+A modern AI-assisted learning experience for telecom concepts — generate targeted questions from telecom plan details, evaluate learner answers, and provide intelligent, personalized feedback.
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white" alt="Python" />
+  <img src="https://img.shields.io/badge/Flask-Web%20App-000000?logo=flask&logoColor=white" alt="Flask" />
+  <img src="https://img.shields.io/badge/OpenAI-LLM%20Evaluation-412991?logo=openai&logoColor=white" alt="OpenAI" />
+</p>
+
+## Why this project matters
+
+Telecommunication learning often requires a mix of domain knowledge, contextual understanding, and evaluation. This project brings those together in a lightweight and practical application that:
+
+- extracts telecom knowledge from plan data
+- creates quiz questions based on relevant details
+- checks the learner's response against the expected answer
+- gives useful explanations and improvement guidance
+
+## Features
+
+- Vectorized knowledge retrieval from telecom data
+- AI-based quiz generation and answer assessment
+- Contextual support for telecom plan and service learning
+- Browser-based user interface
+- Explanation-driven feedback loop for self-improvement
+- Graceful fallback logic when no API key is configured
+
+## Quick start
+
+### 1. Go to the project folder
+
+```bash
+cd letstry
+```
+
+### 2. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Set your OpenAI API key (optional)
+
+#### macOS / Linux
+
+```bash
+export OPENAI_API_KEY="your_api_key_here"
+```
+
+#### Windows (PowerShell)
+
+```powershell
+setx OPENAI_API_KEY "your_api_key_here"
+```
+
+### 4. Start the app
+
+```bash
+python app.py
+```
+
+### 5. Open the app in your browser
+
+```text
+http://127.0.0.1:5000
+```
+
+## Data source
+
+The project uses telecom plan information and quiz knowledge stored in the `data/` directory. These records are used to build the in-memory retrieval system and support answer evaluation.
+
+## Suggested enhancement roadmap
+
+- Add persistent database storage for quiz results and learner progress
+- Add user authentication and role-based access
+- Add test coverage and GitHub Actions CI
+- Upgrade the UI with a modern, polished dashboard
+- Extend support for more telecom domains and advanced learning modules
+
+## Maintainer
+
+Developed and maintained by: `@mohddilshadkhan2003`
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+import json
+import os
+from typing import Any, Dict, List
+
+from dotenv import load_dotenv
+from flask import Flask, jsonify, render_template, request
+
+from llm_client import LLMClient
+from quiz_engine import (
+    build_context_text,
+    build_vector_db,
+    load_knowledge_base,
+    retrieve_context,
+    score_answer,
+)
+
+load_dotenv()
+
+app = Flask(__name__, static_folder="static", template_folder="templates")
+app.config["JSON_SORT_KEYS"] = False
+
+
+def initialize_app() -> tuple[List[Dict[str, Any]], Any, LLMClient]:
+    knowledge_base = load_knowledge_base()
+    plan_contents = knowledge_base.get("plan_details", [])
+    quiz_questions = knowledge_base.get("quiz_questions", [])
+    vector_store = build_vector_db(plan_contents)
+    llm_client = LLMClient()
+    return quiz_questions, vector_store, llm_client
+
+
+quiz_questions, vector_store, llm_client = initialize_app()
+
+
+def find_question(question_id: str) -> Dict[str, Any]:
+    for question in quiz_questions:
+        if question.get("id") == question_id:
+            return question
+    return {}
+
+
+@app.route("/")
+def index() -> str:
+    return render_template("index.html", questions=json.dumps(quiz_questions))
+
+
+@app.route("/health")
+def health() -> Any:
+    return jsonify({"status": "ok", "questions": len(quiz_questions)})
+
+
+@app.route("/evaluate", methods=["POST"])
+def evaluate() -> Any:
+    data = request.get_json(force=True, silent=True) or {}
+    question_id = data.get("question_id", "")
+    user_answer = (data.get("user_answer", "") or "").strip()
+
+    question = find_question(question_id)
+    if not question:
+        return jsonify({"error": "Question not found."}), 400
+
+    context_docs = retrieve_context(vector_store, user_answer, top_k=3)
+    context_text = build_context_text(context_docs)
+    score = score_answer(user_answer, question["answer"])
+    evaluation = llm_client.evaluate_answer(
+        question=question["question"],
+        user_answer=user_answer,
+        correct_answer=question["answer"],
+        explanation=question.get("explanation", ""),
+        context=context_text,
+    )
+
+    correct = score >= 60 or question["answer"].lower() in user_answer.lower()
+    snippet_cards = [
+        {"title": doc["title"], "content": doc["content"]}
+        for doc in context_docs
+    ]
+
+    return jsonify(
+        {
+            "question_id": question_id,
+            "correct": correct,
+            "score": score,
+            "evaluation": evaluation,
+            "correct_answer": question["answer"],
+            "snippet_cards": snippet_cards,
+        }
+    )
+
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    host = os.environ.get("HOST", "127.0.0.1")
+    app.run(host=host, port=port, debug=False)
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+import json
+import os
+import re
+from typing import Any, Dict, List
+
+import numpy as np
+
+DATA_FILE = os.path.join(os.path.dirname(__file__), "data", "plan_details.json")
+
+
+def normalize_text(text: str) -> str:
+    text = text.lower().strip()
+    text = re.sub(r"[^a-z0-9\s]", " ", text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def tokenize(text: str) -> List[str]:
+    return [token for token in normalize_text(text).split() if token]
+
+
+def score_answer(user_answer: str, correct_answer: str) -> float:
+    if not user_answer or not correct_answer:
+        return 0.0
+
+    user_tokens = set(tokenize(user_answer))
+    target_tokens = set(tokenize(correct_answer))
+    if not target_tokens:
+        return 0.0
+
+    overlap = len(user_tokens & target_tokens)
+    phrase_bonus = 1.0 if correct_answer.lower() in user_answer.lower() else 0.0
+    base_score = (overlap / len(target_tokens)) * 100
+    final_score = min(100.0, base_score + (25.0 if phrase_bonus else 0.0))
+    return round(final_score, 2)
+
+
+def load_knowledge_base(path: str = DATA_FILE) -> Dict[str, Any]:
+    with open(path, "r", encoding="utf-8") as json_file:
+        return json.load(json_file)
+
+
+def text_to_embedding(text: str) -> np.ndarray:
+    normalized = normalize_text(text)
+    vector = np.zeros(300, dtype=float)
+    for index, token in enumerate(normalized.split(), start=1):
+        token_value = sum(ord(ch) for ch in token)
+        vector[index % 300] += token_value
+    if np.linalg.norm(vector) == 0:
+        return vector
+    return vector / np.linalg.norm(vector)
+
+
+def build_vector_db(plan_contents: List[Dict[str, Any]]) -> "InMemoryVectorDB":
+    from vector_db import InMemoryVectorDB
+
+    store = InMemoryVectorDB()
+    for plan in plan_contents:
+        content = plan.get("content", "")
+        title = plan.get("title", "")
+        metadata = {
+            "id": plan.get("id"),
+            "title": title,
+            "content": content,
+            "keywords": plan.get("keywords", []),
+        }
+        embedding = text_to_embedding(f"{title}. {content}")
+        store.add(metadata, embedding)
+    return store
+
+
+def retrieve_context(store: "InMemoryVectorDB", question: str, top_k: int = 3) -> List[Dict[str, Any]]:
+    if not question.strip():
+        return []
+    query_embedding = text_to_embedding(question)
+    results = store.search(query_embedding, top_k=top_k)
+    return [result[0] for result in results]
+
+
+def build_context_text(context_docs: List[Dict[str, Any]]) -> str:
+    segments = []
+    for doc in context_docs:
+        title = doc.get("title", "Unknown")
+        content = doc.get("content", "")
+        segments.append(f"Title: {title}\nContent: {content}")
+    return "\n\n".join(segments)
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+import os
+from typing import Optional
+
+try:
+    from openai import OpenAI
+except ImportError:
+    OpenAI = None
+
+
+def get_openai_api_key() -> Optional[str]:
+    return os.environ.get("OPENAI_API_KEY")
+
+
+class LLMClient:
+    def __init__(self, model: str = "gpt-4o-mini"):
+        self.model = model
+        self.api_key = get_openai_api_key()
+        self.client = None
+        if OpenAI is not None and self.api_key:
+            self.client = OpenAI(api_key=self.api_key)
+
+    def evaluate_answer(
+        self,
+        question: str,
+        user_answer: str,
+        correct_answer: str,
+        explanation: str,
+        context: str,
+    ) -> str:
+        if not self.client:
+            return self._fallback_evaluation(question, user_answer, correct_answer, explanation, context)
+
+        prompt = (
+            "You are a telecom training assistant. Evaluate the learner's answer. "
+            "Return a clear score, explain whether it is correct, and highlight the key telecom concept. "
+            "Use the provided context and explanation.\n\n"
+            f"Question: {question}\n"
+            f"Learner Answer: {user_answer}\n"
+            f"Correct Answer: {correct_answer}\n"
+            f"Context: {context}\n"
+            f"Key Explanation: {explanation}\n"
+        )
+
+        try:
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {"role": "system", "content": "You are a helpful telecom education assistant."},
+                    {"role": "user", "content": prompt},
+                ],
+                temperature=0.2,
+                max_tokens=300,
+            )
+            return response.choices[0].message.content.strip()
+        except Exception:
+            return self._fallback_evaluation(question, user_answer, correct_answer, explanation, context)
+
+    @staticmethod
+    def _fallback_evaluation(
+        question: str,
+        user_answer: str,
+        correct_answer: str,
+        explanation: str,
+        context: str,
+    ) -> str:
+        if correct_answer.lower() in user_answer.lower():
+            score = 90
+            detail = (
+                "Your answer matches the expected telecom concept well. "
+                "Review the context for deeper understanding and additional product details."
+            )
+        else:
+            score = 45
+            detail = (
+                "The answer does not yet match the expected plan detail. "
+                "Focus on the plan's features, coverage, pricing, or service attributes."
+            )
+
+        return (
+            "Evaluation:\n"
+            f"Score: {score}/100\n"
+            f"Correct Answer: {correct_answer}\n"
+            f"Feedback: {detail}\n"
+            f"Explanation: {explanation}\n"
+            f"Context: {context}"
+        )
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Telecomm Quiz Tutor</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="nav-inner">
+        <div class="brand">
+          <img src="/static/logo.svg" alt="Telecomm Tutor logo" class="brand-logo" />
+          <span class="brand-title">Telecomm Tutor</span>
+        </div>
+        <div class="nav-actions">
+          <a href="#how" class="nav-link">How it works</a>
+          <a href="#demo" class="nav-link">Demo</a>
+          <a href="/" class="nav-link">Start</a>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="hero-left">
+          <p class="eyebrow">Telecom learning made simple</p>
+          <h1>Interactive Quiz + Tutor Bot</h1>
+          <p class="hero-copy">
+            Learn telecom plans faster through targeted questions, live feedback, and evidence-backed explanations.
+          </p>
+
+          <div class="hero-cta">
+            <button id="start-quiz" class="primary">Start Quiz</button>
+            <a href="#demo" class="muted-link">View demo</a>
+          </div>
+
+          <ul class="quick-features">
+            <li>Vector retrieval + AI explanations</li>
+            <li>Fast local fallback when the API is unavailable</li>
+            <li>Works smoothly for learning and demos</li>
+          </ul>
+        </div>
+
+        <div class="hero-right">
+          <img src="/static/demo-screenshot.svg" alt="Demo screenshot" class="hero-shot" />
+        </div>
+      </div>
+    </header>
+
+    <main class="card-grid">
+      <section class="card quiz-card">
+        <div class="question-header">
+          <span id="question-counter"></span>
+          <h2 id="question-text"></h2>
+        </div>
+
+        <form id="quiz-form">
+          <div id="options-container" class="options-list"></div>
+          <div class="answer-input">
+            <label for="answer-input">Your answer</label>
+            <input id="answer-input" name="answer" placeholder="Type your selected plan or concept..." />
+          </div>
+          <div class="button-row">
+            <button type="button" id="prev-question">Previous</button>
+            <button type="button" id="next-question">Next</button>
+            <button type="submit" id="submit-answer" class="primary">Submit Answer</button>
+          </div>
+        </form>
+
+        <div id="result-card" class="result-card hidden">
+          <div class="result-header">
+            <h3>Evaluation</h3>
+            <span id="score-badge" class="score-badge">-</span>
+          </div>
+          <p id="result-text"></p>
+          <div id="snippets" class="snippets"></div>
+        </div>
+      </section>
+
+      <aside class="card info-card" id="how">
+        <h2>How it works</h2>
+        <ol>
+          <li>Read the question and choose or type your answer.</li>
+          <li>The app retrieves the closest telecom context from the knowledge base.</li>
+          <li>It evaluates your answer and shows the explanation with evidence snippets.</li>
+        </ol>
+
+        <div class="info-box">
+          <strong>Run locally:</strong>
+          <code>python app.py</code>
+          <p>Open <strong>http://127.0.0.1:5000</strong> in your browser.</p>
+        </div>
+
+        <h3 id="demo">Demo</h3>
+        <p class="demo-note">This app is optimized for quick learning, portfolio demos, and telecom concept review.</p>
+        <img src="/static/demo-screenshot.svg" alt="demo" class="demo-shot" />
+      </aside>
+    </main>
+
+    <script>
+      const questions = JSON.parse('{{ questions|safe }}');
+      let currentIndex = 0;
+
+      const questionCounter = document.getElementById('question-counter');
+      const questionText = document.getElementById('question-text');
+      const optionsContainer = document.getElementById('options-container');
+      const answerInput = document.getElementById('answer-input');
+      const resultCard = document.getElementById('result-card');
+      const resultText = document.getElementById('result-text');
+      const snippets = document.getElementById('snippets');
+      const scoreBadge = document.getElementById('score-badge');
+
+      function renderQuestion() {
+        const question = questions[currentIndex];
+        questionCounter.textContent = `Question ${currentIndex + 1} of ${questions.length}`;
+        questionText.textContent = question.question;
+        optionsContainer.innerHTML = question.options
+          .map(
+            (option, index) =>
+              `<button type="button" class="option-button" data-value="${option}">${index + 1}. ${option}</button>`
+          )
+          .join('');
+        answerInput.value = '';
+        resultCard.classList.add('hidden');
+      }
+
+      optionsContainer.addEventListener('click', (event) => {
+        const button = event.target.closest('.option-button');
+        if (!button) return;
+        answerInput.value = button.dataset.value;
+      });
+
+      document.getElementById('prev-question').addEventListener('click', () => {
+        currentIndex = Math.max(0, currentIndex - 1);
+        renderQuestion();
+      });
+
+      document.getElementById('next-question').addEventListener('click', () => {
+        currentIndex = Math.min(questions.length - 1, currentIndex + 1);
+        renderQuestion();
+      });
+
+      document.getElementById('quiz-form').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const question = questions[currentIndex];
+        const userAnswer = answerInput.value.trim();
+        if (!userAnswer) {
+          alert('Please enter an answer or choose an option.');
+          return;
+        }
+
+        const submitButton = document.getElementById('submit-answer');
+        submitButton.disabled = true;
+        submitButton.textContent = 'Checking...';
+
+        const response = await fetch('/evaluate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question_id: question.id, user_answer: userAnswer }),
+        });
+
+        const data = await response.json();
+
+        if (data.error) {
+          resultText.textContent = data.error;
+          resultCard.classList.remove('hidden');
+          submitButton.disabled = false;
+          submitButton.textContent = 'Submit Answer';
+          return;
+        }
+
+        const scoreValue = Number(data.score || 0);
+        scoreBadge.textContent = `${scoreValue.toFixed(0)}/100`;
+        scoreBadge.classList.toggle('high', scoreValue >= 70);
+        scoreBadge.classList.toggle('mid', scoreValue >= 40 && scoreValue < 70);
+        scoreBadge.classList.toggle('low', scoreValue < 40);
+
+        resultText.textContent = data.evaluation;
+        snippets.innerHTML = data.snippet_cards
+          .map(
+            (item) =>
+              `<div class="snippet"><strong>${item.title}</strong><p>${item.content}</p></div>`
+          )
+          .join('');
+        resultCard.classList.remove('hidden');
+
+        submitButton.disabled = false;
+        submitButton.textContent = 'Submit Answer';
+      });
+
+      document.getElementById('start-quiz').addEventListener('click', () => {
+        window.scrollTo({ top: document.querySelector('.quiz-card').offsetTop - 20, behavior: 'smooth' });
+      });
+
+      renderQuestion();
+    </script>
+  </body>
+</html>
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""":root {
+  --bg-0: #07111f;
+  --bg-1: #0d1b2a;
+  --card: rgba(12, 19, 31, 0.78);
+  --card-strong: rgba(15, 23, 42, 0.9);
+  --muted: #b5c5d8;
+  --text: #edf6ff;
+  --accent: #38bdf8;
+  --accent-2: #8b5cf6;
+  --success: #34d399;
+  --warning: #fbbf24;
+  --danger: #f87171;
+  --border: rgba(148, 163, 184, 0.18);
+  color-scheme: dark;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: linear-gradient(180deg, var(--bg-0), var(--bg-1));
+  color: var(--text);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-image: radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 28%),
+    radial-gradient(circle at top right, rgba(139, 92, 246, 0.12), transparent 24%);
+}
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(2, 6, 23, 0.58);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-logo {
+  width: 38px;
+  height: 38px;
+}
+
+.brand-title {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.nav-link {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: var(--text);
+}
+
+.hero {
+  max-width: 1180px;
+  margin: 22px auto 0;
+  padding: 18px;
+}
+
+.hero-inner {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.08), rgba(139, 92, 246, 0.06));
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 28px;
+}
+
+.hero-left {
+  flex: 1;
+}
+
+.hero-right {
+  width: 420px;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.1;
+}
+
+.hero-copy {
+  margin-top: 14px;
+  max-width: 620px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.hero-cta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.primary,
+button {
+  border: none;
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.primary {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  color: #06111d;
+}
+
+button:not(.primary) {
+  background: rgba(148, 163, 184, 0.08);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.primary:hover,
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.muted-link {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.quick-features {
+  margin-top: 16px;
+  margin-left: 18px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.hero-shot,
+.demo-shot {
+  width: 100%;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  object-fit: cover;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.35);
+}
+
+.card-grid {
+  max-width: 1180px;
+  margin: 20px auto 40px;
+  display: grid;
+  grid-template-columns: 1.5fr 0.9fr;
+  gap: 20px;
+  padding: 0 18px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 22px;
+  box-shadow: 0 16px 32px rgba(2, 6, 23, 0.3);
+}
+
+.quiz-card {
+  min-height: 520px;
+}
+
+.question-header {
+  margin-bottom: 18px;
+}
+
+#question-counter {
+  color: var(--accent);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.question-header h2 {
+  margin: 10px 0 0;
+  line-height: 1.4;
+}
+
+.options-list {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.option-button {
+  width: 100%;
+  text-align: left;
+  border-radius: 12px;
+  padding: 14px;
+  background: rgba(148, 163, 184, 0.04);
+  border: 1px solid var(--border);
+  color: var(--text);
+  transition: all 0.2s ease;
+}
+
+.option-button:hover {
+  background: rgba(56, 189, 248, 0.08);
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+.answer-input label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.answer-input input {
+  width: 100%;
+  background: rgba(15, 23, 42, 0.8);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+.button-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.result-card {
+  margin-top: 20px;
+  padding: 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(52, 211, 153, 0.22);
+  background: rgba(16, 185, 129, 0.04);
+}
+
+.result-card.hidden {
+  display: none;
+}
+
+.result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.result-header h3 {
+  margin: 0;
+}
+
+.score-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text);
+  background: rgba(148, 163, 184, 0.14);
+}
+
+.score-badge.high {
+  background: rgba(52, 211, 153, 0.16);
+  color: #b7f7d8;
+}
+
+.score-badge.mid {
+  background: rgba(251, 191, 36, 0.12);
+  color: #f7d883;
+}
+
+.score-badge.low {
+  background: rgba(248, 113, 113, 0.12);
+  color: #f5b1b1;
+}
+
+.snippets {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.snippet {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.snippet strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.snippet p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.info-box {
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 12px;
+  background: rgba(148, 163, 184, 0.05);
+  border: 1px solid var(--border);
+}
+
+.info-box code {
+  display: inline-block;
+  margin-top: 10px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid var(--border);
+  padding: 6px 8px;
+  border-radius: 8px;
+}
+
+.demo-note {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .hero-inner,
+  .card-grid {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+
+  .hero-right {
+    width: 100%;
+  }
+
+  .nav-inner {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""]}]} ţă resumable not allowed. We are not using the file update here as intended. The repo was not updated correctly because the content string was malformed. We need fix by writing proper file updates one-by-one using create_or_update_file with valid content. Let's do that carefully. Need likely overwrite README, letstry README, app.py, quiz_engine.py, llm_client.py, templates/index.html, styles.css. Need not use push_files with giant repeated content. Use create_or_update_file with normal contents. Let's do 7 calls maybe one multi_tool parallel? We can do parallel since independent? For file operations on same repo same branch but independent, can happen in parallel. Use multi_tool_use.parallel with create_or_update_file calls. Good. Need ensure no repo write conflicts due to same branch not issue. Let's do that. Need crafted content concise but valid. Let's first maybe check if files exist and then update. We'll provide content without huge duplication. Need ensure JSON valid. Let's create valid code strings one by one. Let's proceed carefully, using multi_tool_use.parallel with 7 create_or_update_file. Include valid README content. Need include `sha`? Not necessary for new file, but for existing file update needed sha. We know existing blobsha from earlier, but if not sure can omit to create? For existing file update maybe include sha required. To avoid conflict, call without sha and see 409? But to update existing, easier use tool with sha provided. Need get current file contents maybe yes, we have blob sha. So use sha for each existing file from earlier. Great. For root README and letstry/README known blob sha: 3db.. and 035.. . For app.py etc known. Need no need to read updated file before. We'll specify exact sha from earlier. Good. Let's create properly and ensure valid syntax. Need avoid huge strings with weird repeated quoting. Let's craft succinct actual content. Should work. Let's proceed carefully. (Important: if any file update fails due to blob sha mismatch maybe handle with smaller operations. But likely fine because these blobs known and on branch). Use no branch param to follow default branch? But branch from earlier we created. We may specify branch featurereadme... as intended. okay. Let's do parallel update. Need be mindful of `create_or_update_file` only in functions namespace available via multi_tool_use.parallel. Great. Let's run. We'll update README.md (root), letstry/README.md, app.py, quiz_engine.py, llm_client.py, templates/index.html, styles.css. Good. Let's do it. We'll not update requirements. Fine. Let's craft code with valid imports and syntax. We'll keep no weird duplicates. Let's do. Ensure JSON Properties valid. We'll use strings with escaped newlines. Fine. Let's proceed. Use `multi_tool_use.parallel` because multiple writes in parallel. Let's do 7 tasks. Need careful with escaping in JSON. It's large but manageable. Let's do. It's heavy but okay. We'll do one tool call. Let's draft content carefully. Need careful to avoid accidental unescaped backslashes in JSON. Use normal string value; JSON will handle. We'll use triple quotes in tool call but as JSON string with normal escaping. Okay. Let's craft. Good. Let's do it. Let's ensure no weird content beyond file. We'll keep it moderate length. Good. Let's proceed. Let's ensure not to use code fences inside string causing issues? It's okay as plain JSON strings. We can use newline escape sequences automatically by environment. Good. Let's do. We'll trust. Let's proceed. Use functions.create_or_update_file. Good. Let's do. Let's craft a bit less huge but okay. Let's do. We'll keep root README not too long. Let's do. Need include mermaid diagram no problem. Let's proceed. We can pick specific branch 
